@@ -1,0 +1,95 @@
+extends ../layout
+
+block content
+  <!-- Portfolio Grid Section -->
+  <section id="portfolio">
+    <div class="container">
+      include ../includes/alert.pug
+
+      <div class="row">
+        <div class="col-lg-12 text-center">
+          <h2>#{story.question}</h2>
+          <hr class="star-primary">
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-lg-8 col-lg-offset-2">
+          <form class="form-horizontal" role="form" method="POST" action="/stories/#{story.id}">
+            <div class="form-group">
+              <label for="category" class="col-md-4 control-label">Category</label>
+
+              <div class="col-md-6">
+                <select class="form-control" name="category">
+                  <option value="store_products" #{story.category == 'store_products' ? 'selected' : ''}>Produk</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="prerequisite_id" class="col-md-4 control-label">Prerequisite Question</label>
+
+              <div class="col-md-6">
+                <select class="form-control" name="prerequisite_id">
+                  <option value="" #{!story.prerequisite_id ? 'selected' : ''}></option>
+                  each prerequisite in prerequisite_stories
+                    if prerequisite.id != story.id
+                      <option value="#{prerequisite.id}" #{prerequisite.id == story.prerequisite_id ? 'selected' : ''}>#{prerequisite.question}</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="question" class="col-md-4 control-label">Question</label>
+
+              <div class="col-md-6">
+                <input type="text" class="form-control" name="question" value="#{story.question}" required>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="response" class="col-md-4 control-label">Response</label>
+
+              <div class="col-md-6">
+                <input type="text" class="form-control" name="response" value="#{story.response}" required>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <div class="col-md-6 col-md-offset-4 text-left">
+                <button type="submit" class="btn btn-primary">
+                  <i class="fa fa-plus" aria-hidden="true"></i> Update
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="success" id="portfolio">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-12 text-center">
+          <h2>#{story.question} Stores</h2>
+          <hr class="star-light">
+        </div>
+      </div>
+
+      <div class="row">
+        each store in stores
+          <div class="col-sm-4 portfolio-item">
+            <a href="/stores/#{store.id}" class="portfolio-link-light">
+              <div class="caption">
+                <div class="caption-content">
+                  <i class="fa fa-search fa-3x" style="color: rgb(24,188,156);"></i>
+                </div>
+              </div>
+              <img src=#{store.profile_pic} class="img-responsive" alt="">
+              <h4>#{store.name}</h4>
+            </a>
+          </div>
+      </div>
+    </div>
+  </section>

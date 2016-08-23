@@ -1,0 +1,107 @@
+extends ../layout
+
+block content
+  <!-- Portfolio Grid Section -->
+  <section id="portfolio">
+    <div class="container">
+      include ../includes/alert.pug
+
+      <div class="row">
+        <div class="col-lg-12 text-center">
+          <h2>My Stories</h2>
+          <a href="#portfolioModal1" data-toggle="modal">
+            <hr class="plus-primary">
+          </a>
+        </div>
+      </div>
+
+      <div class="row">
+        if stories.length == 0
+          <div class="col-xs-12 align-center">
+            | No stories yet
+          </div>
+        else
+          each story in stories
+            <div class="col-sm-6 question-item">
+              <a href="/stories/#{story.id}" class="question-link">
+                <div class="caption">
+                  <div class="caption-content">
+                    <i class="fa fa-search"></i>
+                  </div>
+                </div>
+                <h4>#{story.question}</h4>
+              </a>
+            </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Portfolio Modals -->
+  <div class="portfolio-modal modal fade" id="portfolioModal1" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-content">
+      <div class="close-modal" data-dismiss="modal">
+        <div class="lr">
+          <div class="rl">
+          </div>
+        </div>
+      </div>
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8 col-lg-offset-2">
+            <div class="modal-body">
+              <h2>Add Story</h2>
+              <hr class="star-primary">
+
+              <form class="form-horizontal" role="form" method="POST" action="/stories">
+                <div class="form-group">
+                  <label for="category" class="col-md-4 control-label">Category</label>
+
+                  <div class="col-md-6">
+                    <select class="form-control" name="category">
+                      <option value="store_products">Produk</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label for="prerequisite_id" class="col-md-4 control-label">Prerequisite Question</label>
+
+                  <div class="col-md-6">
+                    <select class="form-control" name="prerequisite_id">
+                      <option value=""></option>
+                      each story in stories
+                        <option value="#{story.id}">#{story.question}</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label for="question" class="col-md-4 control-label">Question</label>
+
+                  <div class="col-md-6">
+                    <input type="text" class="form-control" name="question" required>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label for="response" class="col-md-4 control-label">Response</label>
+
+                  <div class="col-md-6">
+                    <input type="text" class="form-control" name="response" required>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <div class="col-md-6 col-md-offset-4 text-left">
+                    <button type="submit" class="btn btn-primary">
+                      <i class="fa fa-plus" aria-hidden="true"></i> Add
+                    </button>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

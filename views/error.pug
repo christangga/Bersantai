@@ -1,0 +1,20 @@
+extends layout
+
+block content
+  <!-- Header -->
+  <header>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="intro-text">
+            <span class="name">#{error.status} #{message}</span>
+            <hr class="star-light">
+
+            <div class="text-left">
+              <pre style="overflow-x: hidden">#{error.stack}</pre>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
